@@ -1,15 +1,11 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import App from '../app.vue'
+import  App from  "../App.vue"
 
-Vue.use(Router)
 
-export default new Router({
-  routes: [
+export default  [
     {
-      path: '/',
-      component: App,
-        children: [
+        path: '/',
+        component: App,
+      /*  children: [
             {
                 path: '/login', //登录
                 meta: { auth: false },
@@ -30,9 +26,10 @@ export default new Router({
             },
             {
                 path: '*', //其他页面，强制跳转到登录页面
+
                 redirect: '/login'
             }
-        ]
+        ]*/
     }
-  ]
-})
+]
+
