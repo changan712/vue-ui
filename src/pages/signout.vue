@@ -1,12 +1,12 @@
 <template>
-    <div class="hello">
-        <el-button :loading="true" :disabled="false">默认按钮</el-button>
+    <div class="">
+       signout
     </div>
 </template>
 
 <script>
     export default {
-        name: 'hello',
+
         data () {
             return {
                 msg: 'Welcome to Your Vue.js App'

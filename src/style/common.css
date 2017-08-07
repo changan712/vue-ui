@@ -1,0 +1,12 @@
+*{
+    padding:0;
+    margin:0;
+}
+
+li, dd{
+    list-style:none;
+}
+
+.padding{
+    padding:10px;
+}

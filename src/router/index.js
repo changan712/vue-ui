@@ -1,32 +1,31 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import App from '../app.vue'
+import App from '../App.vue'
 
-Vue.use(Router)
-
-export default new Router({
-  routes: [
+export default [
     {
-      path: '/',
-      component: App,
+        path: '/',
+        component: App,
         children: [
             {
                 path: '/login', //登录
-                meta: { auth: false },
-                component: resolve => require(['../pages/login'], resolve)
+                meta: {auth: false},
+                title: 'login',
+                component: resolve => require(['../pages/login.vue'], resolve)
             },
             {
                 path: '/signout', //退出
-                component: resolve => require(['../pages/signout'], resolve)
+                title: 'signout',
+                component: resolve => require(['../pages/signout.vue'], resolve)
             },
             {
                 path: '/home', //个人主页
-                component: resolve => require(['../pages/home'], resolve)
+                title: 'home',
+                component: resolve => require(['../pages/home.vue'], resolve)
             },
             {
                 path: '/', //首页
-                meta: { auth: false },
-                component: resolve => require(['../pages/index'], resolve)
+                meta: {auth: false},
+                title: 'index',
+                component: resolve => require(['../pages/index.vue'], resolve)
             },
             {
                 path: '*', //其他页面，强制跳转到登录页面
@@ -34,5 +33,4 @@ export default new Router({
             }
         ]
     }
-  ]
-})
+]
