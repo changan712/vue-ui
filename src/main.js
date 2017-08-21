@@ -26,13 +26,12 @@ const router = new VueRouter({
     routes
 });
 
-router.beforeEach(({title, meta, path}, from, next) => {
+router.beforeEach(({meta, path}, from, next) => {
     let {auth = true} = meta;
+    let {title=''} = meta;
     let isLogin = store.state.user.name;//Boolean(store.state.user.id)
 
-    console.log(title);
-
-    store.dispatch(APP_STATUS_UPDATE, {title: title || ''});
+    store.dispatch(APP_STATUS_UPDATE, {title});
 
     if (auth && !isLogin && path !== '/login') {
 

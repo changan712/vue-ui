@@ -5,7 +5,9 @@ export const APP_STATUS_UPDATE = 'APP_STATUS_UPDATE'; //登录成功
 const STORE_KEY = 'APP_STATUS';
 
 export  default  {
-    state: {},
+    state: {
+        title:''
+    },
     mutations: {
         [APP_STATUS_UPDATE](state, status){
             Object.assign(state, status);

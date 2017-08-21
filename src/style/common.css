@@ -10,3 +10,17 @@ li, dd{
 .padding{
     padding:10px;
 }
+
+a{
+    text-decoration:none;
+}
+
+.block{
+    display:block !important;
+    width:100%;
+}
+
+.container{
+    padding:20px;
+
+}

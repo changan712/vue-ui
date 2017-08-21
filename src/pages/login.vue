@@ -1,8 +1,6 @@
 <template>
     <div class="login">
-        <v-header title="登录">
-            <span slot="left"></span>
-        </v-header>
+
         <div class="padding">
             <form class="login" @submit.prevent="submit">
                 <div>
@@ -45,7 +43,6 @@
         methods: {
             ...mapActions([USER_SIGNIN]),
             submit(){
-                debugger;
                 if (this.form.name && this.form.password) {
                     this.USER_SIGNIN(this.form);
                     this.$router.replace({path: '/home'});
