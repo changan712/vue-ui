@@ -12,7 +12,7 @@
                 <br>
                 <div>
                     <el-input type="password" v-model="form.password">
-                        <template slot="prepend">密码：</template>
+                        <template slot="prepend">密码： </template>
 
                     </el-input>
                 </div>
