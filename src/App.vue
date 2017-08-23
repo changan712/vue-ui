@@ -1,12 +1,15 @@
 <style scoped>
-
+    .container{
+        max-width:1200px;
+        margin:0 auto;
+    }
 </style>
 <template>
     <div>
 
         <el-menu theme="dark"  :router="true"  :default-active="$route.path" class="el-menu-demo" mode="horizontal"
                  @select="handleSelect">
-            <el-menu-item index="/" :route="{path:'/'}">上传</el-menu-item>
+            <el-menu-item index="/upload" :route="{path:'/upload'}">上传</el-menu-item>
 
             <el-menu-item index="/search" :route="{path:'/search'}">搜索</el-menu-item>
         </el-menu>
