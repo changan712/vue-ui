@@ -3,6 +3,14 @@
     margin:0;
 }
 
+html{
+    font-size:10px !important;
+}
+
+body{
+    font-size:1.4rem;
+}
+
 li, dd{
     list-style:none;
 }
