@@ -22,12 +22,12 @@
             <el-col :span="6">
                 <div class="sidebar">
                     <dl v-for="item in tags">
-                        <dt>{{item.label}}</dt>
+                        <dt>{{item.name}}</dt>
                         <dd>
                             <el-tag @click.native="typeChanged(item,c)"
                                     :type="activeLabelId==c.id?'primary':'gray'"
                                     v-for="c in item.children">
-                                {{c.label}}
+                                {{c.name}}
                             </el-tag>
                         </dd>
                     </dl>
@@ -39,45 +39,9 @@
 </template>
 
 <script>
-    const tags = [
-        {
-            label: '标签1', id: 1,
-            children: [
-                {
-                    label: '子标签1', id: 11
-                },
-                {
-                    label: '子标签2', id: 12
-                }, {
-                    label: '子标签3', id: 13
-                }, {
-                    label: '子标签4', id: 14
-                }, {
-                    label: '子标签5', id: 15
-                }, {
-                    label: '子标签6', id: 16
-                }, {
-                    label: '子标签7', id: 17
-                }, {
-                    label: '子标签8', id: 18
-                }, {
-                    label: '子标签9', id: 19
-                },
-            ],
 
-        },
-        {
-            label: '标签2', id: 2,
-            children: [
-                {
-                    label: '子标签1', id: 21
-                }, {
-                    label: '子标签2', id: 22
-                },
-            ],
+    import   'whatwg-fetch'
 
-        }
-    ];
 
     export default {
 
@@ -91,7 +55,7 @@
                 },
                 cascaderProp: {
                     value: 'id',
-
+                    label:'name'
                 }
             }
         },
@@ -106,8 +70,11 @@
         },
 
         mounted(){
-
-            this.$set(this, 'tags', tags);
+            this.getData().then((res) => {
+                console.log(res);
+                
+                this.$set(this, 'tags', res);
+            })
 
         },
         methods: {
@@ -115,8 +82,10 @@
 
             },
 
-            getData(){
-
+            getData(query){
+                return fetch('/api/categories', {query}).then((res) => {
+                    return res.json();
+                })
             },
             typeChanged(...type){
                 let arr = [];
