@@ -6,7 +6,6 @@
 </style>
 <template>
     <div>
-
         <el-menu theme="dark"  :router="true"  :default-active="$route.path" class="el-menu-demo" mode="horizontal"
                  @select="handleSelect">
             <el-menu-item index="/upload" :route="{path:'/upload'}">上传</el-menu-item>

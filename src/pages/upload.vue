@@ -13,7 +13,7 @@
                     accept="image/*"
                     ref="upload">
                 <el-button slot="trigger" @click="clearList" type="primary">选取文件</el-button>
-                <span class=" ml10">  {{fileName}}</span>
+                <span class=" ml10">{{fileName}}</span>
                 <div class="error" v-if="submitted&&!fileName">请选择上传文件</div>
 
             </el-upload>
