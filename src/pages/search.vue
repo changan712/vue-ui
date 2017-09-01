@@ -1,8 +1,9 @@
 <template>
     <div class="">
 
-        <div>
-            <el-input placeholder="请输入内容" v-model="search.keyword">
+        <div class="card-search">
+            <el-input placeholder="请输入内容" v-model="search.keyword"
+                      @keyup.native.delete="handleInputDelete(search.keyword)">
                 <el-cascader class="no-bd" v-model="search.type" style="width:100px;" :show-all-levels="false"
                              expand-trigger="hover" :props="cascaderProp" :options="tags" slot="prepend"
                              placeholder="全部">
@@ -15,8 +16,21 @@
 
         <el-row class="main" :gutter="10">
             <el-col :span="18">
-                <div>111</div>
+                <ul class="list">
+                    <li class="item" v-for="item in list">
+                        {{item}}
+                    </li>
+                </ul>
+                <div class="a-r">
+                    <el-pagination
 
+                            @current-change="handlePageChange"
+                            :current-page="search.page"
+                            :page-size="1"
+                            layout="total, prev, pager, next"
+                            :total="list.length">
+                    </el-pagination>
+                </div>
             </el-col>
 
             <el-col :span="6">
@@ -32,6 +46,7 @@
                         </dd>
                     </dl>
                 </div>
+
             </el-col>
         </el-row>
     </div>
@@ -42,20 +57,21 @@
 
     import   'whatwg-fetch'
 
-
     export default {
 
         data () {
             return {
-
+                flagKeyWordSearched: false,
                 tags: [],
+                list: [],
                 search: {
                     keyword: '',
-                    type: []
+                    type: [],
+                    page: 1
                 },
                 cascaderProp: {
                     value: 'id',
-                    label:'name'
+                    label: 'name'
                 }
             }
         },
@@ -70,19 +86,49 @@
         },
 
         mounted(){
-            this.getData().then((res) => {
-                console.log(res);
-                
-                this.$set(this, 'tags', res);
+            this.getTags().then((data) => {
+                this.$set(this, 'tags', data);
+            });
+
+            this.getList(this.search).then((data) => {
+
+                this.$set(this, 'list', data);
             })
 
         },
         methods: {
-            searchHdl(){
+            handleInputDelete(content){
+                if (content.length == 0 && this.flagKeyWordSearched) {
+                    this.searchHdl();
+                    this.$set(this, 'flagKeyWordSearched', false);
+                }
 
             },
+            handlePageChange(page){
 
-            getData(query){
+                this.$set(this.search, 'page', page);
+                this.getList(this.search);
+
+            },
+            searchHdl(){
+                this.$set(this, 'flagKeyWordSearched', true);
+                this.$set(this.search, 'page', 1);
+                this.getList(this.search);
+            },
+
+            getList(query = {}){
+                console.log(query);
+
+                return new Promise((resolve) => {
+                    resolve([1, 2, 3, 4])
+                })
+                /*    return fetch('/api/list', {query}).then((res) => {
+                 return res.json();
+                 })*/
+            },
+
+            getTags(query = {}){
+
                 return fetch('/api/categories', {query}).then((res) => {
                     return res.json();
                 })
@@ -92,7 +138,10 @@
                 type.forEach((item) => {
                     arr.push(item.id);
                 });
-                this.$set(this.search, 'type', arr)
+                this.$set(this.search, 'page', 1);
+                this.$set(this.search, 'type', arr);
+
+                this.getList(this.search);
 
             }
         }
@@ -101,6 +150,25 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+    .card-search{
+        padding:20px ;
+        max-width:600px;
+        margin:0 auto;
+    }
+    .a-r{
+        text-align:right;
+    }
+
+    .list{
+
+    }
+
+    .list .item{
+        border:1px dotted #ddd;
+        padding:10px;
+        margin-bottom:10px;
+    }
+
     .main{
         margin:30px 0 0;
     }

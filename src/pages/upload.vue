@@ -23,12 +23,15 @@
             <el-input v-model="form.title"></el-input>
         </el-form-item>
         <el-form-item label="类别：" prop="label">
-            <el-checkbox-group v-model="form.label" :max="3">
-                <el-checkbox label="1" name="label">美食/餐厅线上活动</el-checkbox>
-                <el-checkbox label="2" name="label">地推活动</el-checkbox>
-                <el-checkbox label="3" name="label">线下主题活动</el-checkbox>
-                <el-checkbox label="4" name="label">单纯品牌曝光</el-checkbox>
-            </el-checkbox-group>
+          <div class="ck-grpup">  <el-checkbox-group v-model="form.label" >  <!--:max="3"-->
+                    <dl v-for="item in tags">
+                        <dt>{{item.name}}</dt>
+                        <dd>
+                            <el-checkbox  v-for="c in item.children" :label="c.id" >{{c.name}}</el-checkbox>
+
+                        </dd>
+                    </dl>
+            </el-checkbox-group></div>
 
         </el-form-item>
         <el-form-item>
@@ -48,7 +51,7 @@
 
             return {
                 submitted: false,
-                view: [],
+                tags: [],
                 form: {
                     label: []
                 },
@@ -56,7 +59,7 @@
                 fileName: '',
                 rules: {
                     label: [
-                        {type:'array',required: true, message: '请至少选择一个', trigger: 'change'}
+                        {type: 'array', required: true, message: '请至少选择一个', trigger: 'change'}
                     ],
                 }
             }
@@ -65,14 +68,18 @@
         watch: {},
 
         mounted(){
-            fetch('/aa', {query: {a: 1}}).then((res) => {
-                console.log(res);
-
-            })
-
+            this.getTags().then((res)=>{
+                this.$set(this, 'tags', res)
+            });
         },
 
         methods: {
+
+            getTags(query = {}){
+                return fetch('/api/categories', {query}).then((res) => {
+                    return res.json();
+                })
+            },
             reset(){
                 this.$refs.formUpload.resetFields();
                 this.$set(this, 'submitted', false)
@@ -93,8 +100,8 @@
                 this.$set(this, 'submitted', true);
                 form.validate((valid) => {
                     if (valid) {
-                       console.log(uploader);
-                        
+                        console.log(uploader);
+
                         uploader.submit();
 
                     }
@@ -103,7 +110,6 @@
             },
             onError(){
                 this.$message.error('上传失败！');
-
 
             },
             onSuccess(){
@@ -121,5 +127,20 @@
     .error{
         color:red;
         font-size:12px;
+    }
+    .ck-grpup{
+        padding: 15px;
+        border:1px solid #bfcbd9;
+        border-radius:5px;
+    }
+
+    .ck-grpup dl:not(:last-child){
+        border-bottom:1px dotted #ddd;
+        margin-bottom:10px;
+    }
+
+    .ck-grpup dt{
+        line-height:1.8;
+        font-weight:bold;
     }
 </style>
