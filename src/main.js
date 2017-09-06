@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App'
 import routes from './router';
-import  store from  './store'
+import  store from  './store';
+
 
 import  components  from  './components'
 
@@ -27,7 +28,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach(({meta, path}, from, next) => {
-    let {title=''} = meta;
+    let {title = ''} = meta;
     store.dispatch(APP_STATUS_UPDATE, {title});
     next()
 });

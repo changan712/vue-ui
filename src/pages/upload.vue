@@ -142,4 +142,7 @@
         line-height:1.8;
         font-weight:bold;
     }
+    .el-checkbox{
+        margin:0 15px 0 0 ;
+    }
 </style>
