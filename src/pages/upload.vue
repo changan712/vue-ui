@@ -16,7 +16,7 @@
                 <div class="error" v-if="submitted&&!fileName">请选择上传文件</div>
 
             </el-upload>
-
+        {{fileList}}
         </el-form-item>
         <el-form-item label="标题：" prop="title">
             <el-input v-model="form.title"></el-input>
@@ -38,7 +38,7 @@
         </el-form-item>
     </el-form>
 
-</template>11
+</template>
 
 <script>
 
@@ -58,7 +58,7 @@
                 fileName: '',
                 rules: {
                     label: [
-                        {type: 'array', required: true, message: '请至少选择一个', trigger: 'change'}
+                        {type: 'array',  message: '请至少选择一个', trigger: 'change'}
                     ],
                 }
             }
@@ -109,7 +109,6 @@
             },
             onError(){
                 this.$message.error('上传失败！');
-
             },
             onSuccess(){
                 this.$message('上传成功！');

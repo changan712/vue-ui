@@ -125,10 +125,7 @@
                 if (typeMap[value]) {
                     result = typeMap[value];
                 }
-                console.log(result);
-                
                 return result;
-
             }
 
         },
