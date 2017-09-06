@@ -2,7 +2,7 @@
     <el-form :model="form" :rules="rules" ref="formUpload" label-width="140px">
         <el-form-item label="文件：" required>
             <el-upload
-                    action="/upload"
+                    action="/api/upload_handle"
                     :on-success="onSuccess"
                     :on-error="onError"
                     :file-list="fileList"
@@ -10,7 +10,6 @@
                     :on-change="handleChange"
                     :showFileList="false"
                     :data="form"
-                    accept="image/*"
                     ref="upload">
                 <el-button slot="trigger" @click="clearList" type="primary">选取文件</el-button>
                 <span class=" ml10">{{fileName}}</span>
